@@ -32,9 +32,14 @@ public class EntertainBinder implements GraywaterAdapter.Binder<EntertainPrimiti
             binders, int binderIndex, @NonNull GraywaterAdapter.ActionListener<EntertainPrimitive, EntertainViewHolder> actionListener) {
         Picasso.get().load(model.getUrls().get(binderIndex)).placeholder(R.mipmap.ic_launcher).into(holder.getImg());
         holder.getTitle().setText(model.getTitles().get(binderIndex));
+
+        holder.getmActionListenerDelegate().update(actionListener, model, holder, binders, binderIndex, null);
+        holder.getMainLayoutView().setOnClickListener(holder.getmActionListenerDelegate());
     }
 
     @Override
-    public void unbind(@NonNull EntertainViewHolder holder) {}
+    public void unbind(@NonNull EntertainViewHolder holder) {
+        holder.getMainLayoutView().setOnClickListener(null);
+    }
 
 }

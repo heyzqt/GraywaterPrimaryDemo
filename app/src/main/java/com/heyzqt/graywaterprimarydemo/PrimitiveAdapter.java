@@ -2,6 +2,7 @@ package com.heyzqt.graywaterprimarydemo;
 
 import com.heyzqt.graywaterprimarydemo.binder.EntertainBinder;
 import com.heyzqt.graywaterprimarydemo.binderlist.EntertainItemBinder;
+import com.heyzqt.graywaterprimarydemo.listener.OnItemClickListener;
 import com.heyzqt.graywaterprimarydemo.model.EntertainPrimitive;
 import com.heyzqt.graywaterprimarydemo.model.Primitive;
 import com.heyzqt.graywaterprimarydemo.viewholder.EntertainViewHolder;
@@ -15,12 +16,12 @@ import com.tumblr.graywater.GraywaterAdapter;
 
 public class PrimitiveAdapter extends GraywaterAdapter<Primitive, PrimitiveViewHolder, Class<? extends Primitive>> {
 
-    public PrimitiveAdapter() {
+    public PrimitiveAdapter(OnItemClickListener listener) {
         register(new EntertainViewHolderCreator(), EntertainViewHolder.class);  //将creator和对应的viewholder绑定
 
         EntertainBinder entertainBinder = new EntertainBinder();
-        EntertainItemBinder entertainItemBinder = new EntertainItemBinder(entertainBinder);
-        register(EntertainPrimitive.class, entertainItemBinder, null);  //将itemBinder和指定的数据类型绑定
+        EntertainItemBinder entertainItemBinder = new EntertainItemBinder(entertainBinder, listener);
+        register(EntertainPrimitive.class, entertainItemBinder, entertainItemBinder);  //将itemBinder和指定的数据类型绑定
     }
 
     @Override

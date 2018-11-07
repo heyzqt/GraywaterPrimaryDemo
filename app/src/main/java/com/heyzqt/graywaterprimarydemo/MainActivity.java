@@ -4,13 +4,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
+import com.heyzqt.graywaterprimarydemo.listener.OnItemClickListener;
 import com.heyzqt.graywaterprimarydemo.model.EntertainPrimitive;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnItemClickListener {
 
     private RecyclerView mRecyclerView;
     private PrimitiveAdapter mPrimitiveAdapter;
@@ -42,12 +44,17 @@ public class MainActivity extends AppCompatActivity {
     private void initContentView() {
         mRecyclerView = findViewById(R.id.recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        mPrimitiveAdapter = new PrimitiveAdapter();
+        mPrimitiveAdapter = new PrimitiveAdapter(this);
         mRecyclerView.setAdapter(mPrimitiveAdapter);
     }
 
     private void updateRecyclerView() {
         mPrimitiveAdapter.add(mEntertainPrimitive);
         mPrimitiveAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onClickItem(String name) {
+        Toast.makeText(this, "这条item的内容是：" + name, Toast.LENGTH_SHORT).show();
     }
 }
