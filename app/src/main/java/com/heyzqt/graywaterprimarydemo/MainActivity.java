@@ -1,5 +1,6 @@
 package com.heyzqt.graywaterprimarydemo;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -28,8 +29,8 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
     private List<EntertainItem> entertainItems = new ArrayList<>();
     private List<SportItem> sportItems = new ArrayList<>();
 
-    private final String TYPE_ENTERTAIN = "entertain";
-    private final String TYPE_SPORT = "sport";
+    public static final String TYPE_ENTERTAIN = "entertain";
+    public static final String TYPE_SPORT = "sport";
 
     private final int POS_ENTERTAIN = 0;
     private final int POS_SPORT = 1;
@@ -128,7 +129,10 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
 
     @Override
     public void onClickEditEntertain(EntertainItem entertain) {
-
+        Intent intent = new Intent(this, EditActivity.class);
+        intent.putExtra("type", TYPE_ENTERTAIN);
+        intent.putExtra("obj", entertain);
+        startActivityForResult(intent, 11);
     }
 
     @Override
@@ -152,7 +156,10 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
 
     @Override
     public void onClickEditSport(SportItem sport) {
-
+        Intent intent = new Intent(this, EditActivity.class);
+        intent.putExtra("type", TYPE_SPORT);
+        intent.putExtra("obj", sport);
+        startActivityForResult(intent, 11);
     }
 
     @Override
@@ -163,6 +170,57 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
             SportItem sportItem = (SportItem) iterator.next();
             if (sportItem.getId().equals(sportItem.getId())) {
                 iterator.remove();
+                needRefresh = true;
+                break;
+            }
+        }
+
+        if (needRefresh) {
+            mPrimitiveAdapter.remove(POS_SPORT);
+            mPrimitiveAdapter.add(POS_SPORT, mSportPrimitive);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case 100:
+                String type = data.getStringExtra("type");
+                if (MainActivity.TYPE_ENTERTAIN.equals(type)) {
+                    updateEntertainItem((EntertainItem) data.getSerializableExtra("obj"));
+                } else {
+                    updateSportItem((SportItem) data.getSerializableExtra("obj"));
+                }
+                break;
+        }
+    }
+
+    private void updateEntertainItem(EntertainItem item) {
+        boolean needRefresh = false;
+        Iterator iterator = entertainItems.iterator();
+        while (iterator.hasNext()) {
+            EntertainItem entertainItem = (EntertainItem) iterator.next();
+            if (entertainItem.getId().equals(item.getId())) {
+                entertainItem.setTitle(item.getTitle());
+                needRefresh = true;
+                break;
+            }
+        }
+
+        if (needRefresh) {
+            mPrimitiveAdapter.remove(POS_ENTERTAIN);
+            mPrimitiveAdapter.add(POS_ENTERTAIN, mEntertainPrimitive);
+        }
+    }
+
+    private void updateSportItem(SportItem item) {
+        boolean needRefresh = false;
+        Iterator iterator = sportItems.iterator();
+        while (iterator.hasNext()) {
+            SportItem sportItem = (SportItem) iterator.next();
+            if (sportItem.getId().equals(item.getId())) {
+                sportItem.setTitle(item.getTitle());
                 needRefresh = true;
                 break;
             }

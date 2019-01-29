@@ -1,10 +1,12 @@
 package com.heyzqt.graywaterprimarydemo.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by heyzqt on 2019/1/29.
  */
 
-public class EntertainItem {
+public class EntertainItem implements Serializable {
     private String id;
     private String url;
     private String title;
