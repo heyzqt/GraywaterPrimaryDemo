@@ -3,6 +3,7 @@ package com.heyzqt.graywaterprimarydemo.binder;
 import android.support.annotation.NonNull;
 
 import com.heyzqt.graywaterprimarydemo.R;
+import com.heyzqt.graywaterprimarydemo.bean.SportItem;
 import com.heyzqt.graywaterprimarydemo.model.SportPrimitive;
 import com.heyzqt.graywaterprimarydemo.viewholder.SportViewHolder;
 import com.squareup.picasso.Picasso;
@@ -30,8 +31,10 @@ public class SportBinder implements GraywaterAdapter.Binder<SportPrimitive, Spor
     @Override
     public void bind(@NonNull SportPrimitive model, @NonNull SportViewHolder holder, @NonNull List<GraywaterAdapter.Binder<? super SportPrimitive, ? extends SportViewHolder>>
             binders, int binderIndex, @NonNull GraywaterAdapter.ActionListener<SportPrimitive, SportViewHolder> actionListener) {
-        Picasso.get().load(model.getUrls().get(binderIndex)).placeholder(R.mipmap.ic_launcher).into(holder.getImg());
-        holder.getTitle().setText(model.getTitles().get(binderIndex));
+        SportItem sport = model.getSportItems().get(binderIndex - 1);
+
+        Picasso.get().load(sport.getUrl()).placeholder(R.mipmap.ic_launcher).into(holder.getImg());
+        holder.getTitle().setText(sport.getTitle());
 
         holder.getmActionListenerDelegate().update(actionListener, model, holder, binders, binderIndex, null);
         holder.getMainLayoutView().setOnClickListener(holder.getmActionListenerDelegate());

@@ -5,7 +5,9 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.heyzqt.graywaterprimarydemo.R;
+import com.heyzqt.graywaterprimarydemo.bean.EntertainItem;
 import com.heyzqt.graywaterprimarydemo.binder.EntertainBinder;
+import com.heyzqt.graywaterprimarydemo.binder.TitleBinder;
 import com.heyzqt.graywaterprimarydemo.listener.OnItemClickListener;
 import com.heyzqt.graywaterprimarydemo.model.EntertainPrimitive;
 import com.heyzqt.graywaterprimarydemo.viewholder.EntertainViewHolder;
@@ -21,10 +23,12 @@ import java.util.List;
 
 public class EntertainItemBinder implements GraywaterAdapter.ItemBinder<EntertainPrimitive, PrimitiveViewHolder>, GraywaterAdapter.ActionListener<EntertainPrimitive, EntertainViewHolder> {
 
+    private TitleBinder titleBinder;
     private EntertainBinder entertainBinder;
     private OnItemClickListener onItemClickListener;
 
-    public EntertainItemBinder(EntertainBinder binder, OnItemClickListener listener) {
+    public EntertainItemBinder(TitleBinder titleBinder, EntertainBinder binder, OnItemClickListener listener) {
+        this.titleBinder = titleBinder;
         this.entertainBinder = binder;
         this.onItemClickListener = listener;
     }
@@ -33,7 +37,8 @@ public class EntertainItemBinder implements GraywaterAdapter.ItemBinder<Entertai
     @Override
     public List<GraywaterAdapter.Binder<? super EntertainPrimitive, ? extends PrimitiveViewHolder>> getBinderList(@NonNull final EntertainPrimitive model, int position) {
         return new ArrayList<GraywaterAdapter.Binder<? super EntertainPrimitive, ? extends PrimitiveViewHolder>>() {{
-            for (String s : model.getTitles()) {
+            add(titleBinder);
+            for (EntertainItem entertainItem : model.getEntertainItems()) {
                 add(entertainBinder);
             }
         }};
@@ -44,7 +49,7 @@ public class EntertainItemBinder implements GraywaterAdapter.ItemBinder<Entertai
             EntertainViewHolder>> binders, int binderIndex, @Nullable Object obj) {
         switch (v.getId()) {
             case R.id.item_layout:
-                onItemClickListener.onClickItem(model.getTitles().get(binderIndex));
+                onItemClickListener.onClickItem("hello");
                 break;
         }
     }

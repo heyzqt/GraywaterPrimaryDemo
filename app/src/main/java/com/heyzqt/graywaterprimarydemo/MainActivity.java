@@ -6,6 +6,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import com.heyzqt.graywaterprimarydemo.bean.EntertainItem;
+import com.heyzqt.graywaterprimarydemo.bean.ModuleName;
+import com.heyzqt.graywaterprimarydemo.bean.SportItem;
 import com.heyzqt.graywaterprimarydemo.listener.OnItemClickListener;
 import com.heyzqt.graywaterprimarydemo.model.EntertainPrimitive;
 import com.heyzqt.graywaterprimarydemo.model.SportPrimitive;
@@ -20,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
 
     private EntertainPrimitive mEntertainPrimitive;
     private SportPrimitive mSportPrimitive;
+    private List<EntertainItem> entertainItems = new ArrayList<>();
+    private List<SportItem> sportItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,24 +37,28 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
     }
 
     private void initData() {
-        List<String> urls = new ArrayList<>();
-        List<String> titles = new ArrayList<>();
-
+        ModuleName entertainModule = new ModuleName();
+        entertainModule.setKey("entertain");
+        entertainModule.setValue("娱乐新闻");
         for (int i = 0; i < 20; i++) {
-            urls.add("http://n.sinaimg.cn/ent/4_img/upload/0b3147ad/107/w1024h683/20181023/M34_-hmuuiyw5724330.jpg");
-            titles.add("item " + (i + 1) + " : " + "福原爱现身退役发布会挥泪告别 甜美比心畅聊感慨");
+            EntertainItem entertain = new EntertainItem();
+            entertain.setUrl("http://n.sinaimg.cn/ent/4_img/upload/0b3147ad/107/w1024h683/20181023/M34_-hmuuiyw5724330.jpg");
+            entertain.setTitle("item " + (i + 1) + " : " + "福原爱现身退役发布会挥泪告别 甜美比心畅聊感慨");
+            entertainItems.add(entertain);
         }
 
-        List<String> urls1 = new ArrayList<>();
-        List<String> titles1 = new ArrayList<>();
-
+        ModuleName sportModule = new ModuleName();
+        sportModule.setKey("sport");
+        sportModule.setValue("体育新闻");
         for (int i = 0; i < 20; i++) {
-            urls1.add("http://i2.chinanews.com/simg/cmshd/2019/01/28/10ac01abbdd74e9f9d9f9e0f83cc29a9.jpg");
-            titles1.add("item " + (i + 1) + " : " + "哈登独得40分保罗复出 火箭主场103:98复仇魔术");
+            SportItem sport = new SportItem();
+            sport.setUrl("http://i2.chinanews.com/simg/cmshd/2019/01/28/10ac01abbdd74e9f9d9f9e0f83cc29a9.jpg");
+            sport.setTitle("item " + (i + 1) + " : " + "哈登独得40分保罗复出 火箭主场103:98复仇魔术");
+            sportItems.add(sport);
         }
 
-        mEntertainPrimitive = new EntertainPrimitive(urls, titles);
-        mSportPrimitive = new SportPrimitive(urls1, titles1);
+        mEntertainPrimitive = new EntertainPrimitive(entertainModule, entertainItems);
+        mSportPrimitive = new SportPrimitive(sportModule, sportItems);
     }
 
     private void initContentView() {
