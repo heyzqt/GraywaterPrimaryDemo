@@ -18,6 +18,7 @@ public class SportViewHolder extends PrimitiveViewHolder {
     private RelativeLayout mainLayoutView;
     private ImageView img;
     private TextView title;
+    private TextView delete;
 
     private GraywaterAdapter.ActionListenerDelegate<SportPrimitive, SportViewHolder>
             mActionListenerDelegate = new GraywaterAdapter.ActionListenerDelegate<>();
@@ -27,6 +28,15 @@ public class SportViewHolder extends PrimitiveViewHolder {
         img = itemView.findViewById(R.id.img);
         title = itemView.findViewById(R.id.name);
         mainLayoutView = itemView.findViewById(R.id.item_layout);
+        delete = itemView.findViewById(R.id.delete);
+    }
+
+    public TextView getDelete() {
+        return delete;
+    }
+
+    public void setDelete(TextView delete) {
+        this.delete = delete;
     }
 
     public ImageView getImg() {

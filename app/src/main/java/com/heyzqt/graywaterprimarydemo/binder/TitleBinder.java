@@ -34,10 +34,13 @@ public class TitleBinder<U extends Primitive.Title> implements GraywaterAdapter.
     public void bind(@NonNull U model, @NonNull TitleViewHolder holder, @NonNull List<GraywaterAdapter.Binder<? super U, ? extends TitleViewHolder>> binders, int binderIndex, @NonNull
             GraywaterAdapter.ActionListener<U, TitleViewHolder> actionListener) {
         holder.getTitle().setText(model.getModuleName().getValue());
+
+        holder.getmActionListenerDelegate().update(actionListener, model, holder, binders, binderIndex, null);
+        holder.getAdd().setOnClickListener(holder.getmActionListenerDelegate());
     }
 
     @Override
     public void unbind(@NonNull TitleViewHolder holder) {
-
+        holder.getAdd().setOnClickListener(null);
     }
 }

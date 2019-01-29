@@ -21,7 +21,7 @@ import java.util.List;
  * Created by heyzqt on 2018/10/23.
  */
 
-public class SportItemBinder implements GraywaterAdapter.ItemBinder<SportPrimitive, PrimitiveViewHolder>, GraywaterAdapter.ActionListener<SportPrimitive, SportViewHolder> {
+public class SportItemBinder implements GraywaterAdapter.ItemBinder<SportPrimitive, PrimitiveViewHolder>, GraywaterAdapter.ActionListener<SportPrimitive, PrimitiveViewHolder> {
 
     private TitleBinder titleBinder;
     private SportBinder sportBinder;
@@ -45,11 +45,17 @@ public class SportItemBinder implements GraywaterAdapter.ItemBinder<SportPrimiti
     }
 
     @Override
-    public void act(@NonNull SportPrimitive model, @NonNull SportViewHolder holder, @NonNull View v, @NonNull List<GraywaterAdapter.Binder<? super SportPrimitive, ? extends
-            SportViewHolder>> binders, int binderIndex, @Nullable Object obj) {
+    public void act(@NonNull SportPrimitive model, @NonNull PrimitiveViewHolder holder, @NonNull View v, @NonNull List<GraywaterAdapter.Binder<? super SportPrimitive, ? extends
+            PrimitiveViewHolder>> binders, int binderIndex, @Nullable Object obj) {
         switch (v.getId()) {
+            case R.id.add:
+                onItemClickListener.onClickaddNews(model.getModuleName().getKey());
+                break;
             case R.id.item_layout:
-                onItemClickListener.onClickItem("hello");
+                onItemClickListener.onClickEditSport(model.getSportItems().get(binderIndex - 1));
+                break;
+            case R.id.delete:
+                onItemClickListener.onClickDeleteSport(model.getSportItems().get(binderIndex - 1));
                 break;
         }
     }

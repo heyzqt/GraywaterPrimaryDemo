@@ -38,11 +38,13 @@ public class SportBinder implements GraywaterAdapter.Binder<SportPrimitive, Spor
 
         holder.getmActionListenerDelegate().update(actionListener, model, holder, binders, binderIndex, null);
         holder.getMainLayoutView().setOnClickListener(holder.getmActionListenerDelegate());
+        holder.getDelete().setOnClickListener(holder.getmActionListenerDelegate());
     }
 
     @Override
     public void unbind(@NonNull SportViewHolder holder) {
         holder.getMainLayoutView().setOnClickListener(null);
+        holder.getDelete().setOnClickListener(null);
     }
 
 }

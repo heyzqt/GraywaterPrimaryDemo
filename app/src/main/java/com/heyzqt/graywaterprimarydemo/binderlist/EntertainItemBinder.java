@@ -21,7 +21,7 @@ import java.util.List;
  * Created by heyzqt on 2018/10/23.
  */
 
-public class EntertainItemBinder implements GraywaterAdapter.ItemBinder<EntertainPrimitive, PrimitiveViewHolder>, GraywaterAdapter.ActionListener<EntertainPrimitive, EntertainViewHolder> {
+public class EntertainItemBinder implements GraywaterAdapter.ItemBinder<EntertainPrimitive, PrimitiveViewHolder>, GraywaterAdapter.ActionListener<EntertainPrimitive, PrimitiveViewHolder> {
 
     private TitleBinder titleBinder;
     private EntertainBinder entertainBinder;
@@ -45,11 +45,17 @@ public class EntertainItemBinder implements GraywaterAdapter.ItemBinder<Entertai
     }
 
     @Override
-    public void act(@NonNull EntertainPrimitive model, @NonNull EntertainViewHolder holder, @NonNull View v, @NonNull List<GraywaterAdapter.Binder<? super EntertainPrimitive, ? extends
-            EntertainViewHolder>> binders, int binderIndex, @Nullable Object obj) {
+    public void act(@NonNull EntertainPrimitive model, @NonNull PrimitiveViewHolder holder, @NonNull View v, @NonNull List<GraywaterAdapter.Binder<? super EntertainPrimitive, ? extends
+            PrimitiveViewHolder>> binders, int binderIndex, @Nullable Object obj) {
         switch (v.getId()) {
+            case R.id.add:
+                onItemClickListener.onClickaddNews(model.getModuleName().getKey());
+                break;
             case R.id.item_layout:
-                onItemClickListener.onClickItem("hello");
+                onItemClickListener.onClickEditEntertain(model.getEntertainItems().get(binderIndex - 1));
+                break;
+            case R.id.delete:
+                onItemClickListener.onClickDeleteEntertain(model.getEntertainItems().get(binderIndex - 1));
                 break;
         }
     }

@@ -31,18 +31,20 @@ public class EntertainBinder implements GraywaterAdapter.Binder<EntertainPrimiti
     @Override
     public void bind(@NonNull EntertainPrimitive model, @NonNull EntertainViewHolder holder, @NonNull List<GraywaterAdapter.Binder<? super EntertainPrimitive, ? extends EntertainViewHolder>>
             binders, int binderIndex, @NonNull GraywaterAdapter.ActionListener<EntertainPrimitive, EntertainViewHolder> actionListener) {
-        EntertainItem entertain = model.getEntertainItems().get(binderIndex - 1);  //因为第一个数据时新闻标题，所以新闻内容数据获取时要减一
+        EntertainItem entertain = model.getEntertainItems().get(binderIndex - 1);  //因为第一个数据是新闻标题，所以新闻内容数据获取时要减一
 
         Picasso.get().load(entertain.getUrl()).placeholder(R.mipmap.ic_launcher).into(holder.getImg());
         holder.getTitle().setText(entertain.getTitle());
 
         holder.getmActionListenerDelegate().update(actionListener, model, holder, binders, binderIndex, null);
         holder.getMainLayoutView().setOnClickListener(holder.getmActionListenerDelegate());
+        holder.getDelete().setOnClickListener(holder.getmActionListenerDelegate());
     }
 
     @Override
     public void unbind(@NonNull EntertainViewHolder holder) {
         holder.getMainLayoutView().setOnClickListener(null);
+        holder.getDelete().setOnClickListener(null);
     }
 
 }

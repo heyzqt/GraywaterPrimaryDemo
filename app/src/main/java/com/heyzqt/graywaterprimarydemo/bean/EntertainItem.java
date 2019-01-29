@@ -5,8 +5,17 @@ package com.heyzqt.graywaterprimarydemo.bean;
  */
 
 public class EntertainItem {
+    private String id;
     private String url;
     private String title;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getUrl() {
         return url;
