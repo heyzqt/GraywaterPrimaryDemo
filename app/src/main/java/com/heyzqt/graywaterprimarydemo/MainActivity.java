@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
 
         EntertainItem entertain = new EntertainItem();
         entertain.setId("" + (entertainItems.size() + 1));
-        entertain.setUrl("http://i2.chinanews.com/simg/cmshd/2019/01/28/10ac01abbdd74e9f9d9f9e0f83cc29a9.jpg");
+        entertain.setUrl("https://img8.ccnxs.cn/uploadfile/hbase/201901/0129/HBC5C4FABFA51855.png");
         entertain.setTitle("item " + (entertainItems.size() + 1) + " : " + "胡海泉独自现身丽江 面带微笑任拍照");
         entertainItems.add(entertain);
     }
