@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
             case TYPE_ENTERTAIN:
                 addEntertainNews();
                 mPrimitiveAdapter.remove(POS_ENTERTAIN);
-                mPrimitiveAdapter.add(POS_ENTERTAIN, mEntertainPrimitive);
+                mPrimitiveAdapter.add(POS_ENTERTAIN, mEntertainPrimitive);  //不需要mPrimitiveAdapter.notifyDataSetChanged();在add()方法中已经包含了更新操作
                 break;
             case TYPE_SPORT:
                 addSportNews();

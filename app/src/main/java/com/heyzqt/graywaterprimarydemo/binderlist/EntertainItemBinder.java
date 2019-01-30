@@ -37,9 +37,9 @@ public class EntertainItemBinder implements GraywaterAdapter.ItemBinder<Entertai
     @Override
     public List<GraywaterAdapter.Binder<? super EntertainPrimitive, ? extends PrimitiveViewHolder>> getBinderList(@NonNull final EntertainPrimitive model, int position) {
         return new ArrayList<GraywaterAdapter.Binder<? super EntertainPrimitive, ? extends PrimitiveViewHolder>>() {{
-            add(titleBinder);
+            add(titleBinder);  //添加娱乐新闻标题
             for (EntertainItem entertainItem : model.getEntertainItems()) {
-                add(entertainBinder);
+                add(entertainBinder);   //添加娱乐新闻内容
             }
         }};
     }
